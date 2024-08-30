@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Todos</title>
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <ul class="navigation">
+                <li><a href="/index">ToDOs</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="/index">Todo items</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </header>
+        <main class="content">
+            <h1>Todo List</h1>
+            <form class="add-form" method="POST" action="/add">
+                <input type="text" name="task">
+                <button type="submit">Add</button>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Complete</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                        <tr>
+                            <td>{{ todo.task }}</td>
+                            <td><input type="checkbox" disabled {% if todo.complete %}checked{% endif %}></td>
+                            <td><a href="/edit/{{ todo.id }}">Edit</a> | <a href="/delete/{{ todo.id }}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+        <footer class="footer">2024 Flask Training</footer>
+    </div>
+</body>
+</html>
